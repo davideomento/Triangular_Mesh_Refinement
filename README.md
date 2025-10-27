@@ -54,7 +54,4 @@ The folder **`presentation_and_report/`** contains:
 - **Complex Refinement:** maintains conformity across adjacent triangles through recursive subdivision.  
 - **Mesh Quality Preservation:** prevents the creation of irregular or poorly shaped elements.  
 
----
-
-## 📂 Project Structure
-
+The project was done in collaboration with Giorgio Musso and Matteo Racca.
