@@ -1,37 +1,65 @@
-# Progetto Raffinamento
+# 🔹 Mesh Refinement Project
 
-Data una mesh triangolare, raffinare un opportuno sottoinsieme di triangoli in modo da ottenere una mesh più fine.
+## Overview
 
-<p style="text-align:center;"><img src="./Images/refinement.jpg"  width="80%" height="30%"></p>
+This project focuses on the **complex refinement** of a triangular mesh.  
+Given an initial triangulated domain, the goal is to refine selected triangles to obtain a **finer and conforming mesh**, improving geometric resolution while preserving mesh quality.
 
-## Algoritmo
+<p align="center">
+  <img src="./Images/refinement.jpg" width="80%" alt="Mesh refinement illustration">
+</p>
 
-Esistono diversi metodi oer raffinare un triangolo $T$. Si richiede di implementare il metodo denominato "bisezione del lato più lungo".
+---
 
-<p style="text-align:center;"><img src="./Images/triangle_ref.jpg"  width="30%" height="30%"></p>
+## 🧩 Algorithm Description
 
-Per la sua implementazione occorre:
-* rintracciare il lato $e^T$ più lungo del triangolo $T$;
-* calcolare il punto medio $M_{e^T}$ del lato $e^T$ e unirlo al vertice $V^T_{e^T}$ opposto al lato $e^T$.
+The refinement process is based on the **Longest Edge Bisection (LEB)** method.  
+For each triangle \( T \), the algorithm identifies its **longest edge** \( e^T \), computes the **midpoint** \( M_{e^T} \), and connects it to the **vertex opposite** to \( e^T \), creating two new sub-triangles \( T_1 \) and \( T_2 \).
 
-In questo modo si generano due sotto-triangoli $T_1, T_2$. 
+However, after refinement, the resulting mesh must remain **conforming**, meaning that adjacent triangles must share either a **full edge** or a **single vertex** — never a partial edge.
 
-Si deve dunque procedere a rendere la triangolazione ammissibile, ovvero due triangoli adiacenti devono avere in comune o un intero lato o un solo vertice.
-Per farlo, è necessario cercare il triangolo $S$ adiacente al lato $e^T$ e raffinarlo con uno dei due seguenti metodi:
+<p align="center">
+  <img src="./Images/triangle_ref.jpg" width="40%" alt="Triangle refinement illustration">
+</p>
 
-* SEMPLICE - unire il nuovo punto creato $M_{e^T}$ al vertice $V^S_{e^T}$ del triangolo $S$ opposto al lato ${e^T}$;
+---
 
-<p style="text-align:center;"><img src="./Images/conforming_simple.png"  width="50%" height="30%"></p>
+## ⚙️ Complex Refinement
 
-* COMPLESSO - applicare il metodo di "bisezione del lato più lungo" al triangolo $S$ adiacente e procedere successivamente ad unire il nuovo punto creato $M_{e^S}$ con $M_{e^T}$ creando due nuovi sottotriangoli. Ripetere tale procedura finchè la mesh non risulterà ammissibile.
+To ensure conformity and preserve mesh quality, the **complex refinement** procedure is applied.  
+When a triangle \( T \) is refined, its **neighbor triangle \( S \)** that shares the refined edge must also be updated to avoid inconsistencies.  
 
-<p style="text-align:center;"><img src="./Images/conforming_complex.png"  width="100%" height="30%"></p>
+Instead of performing a simple subdivision, the **complex method** recursively applies the **longest edge bisection** to the adjacent triangles as well.  
+This process continues until all triangles satisfy the **conformity condition**, ensuring that:
 
-**NOTA**: il metodo complesso garantisce il mantenimento della qualità della mesh di partenza, durante il processo di raffinamento.
+- The mesh remains **consistent** across adjacent elements;  
+- The **quality** of the original mesh is preserved;  
+- The **transition** between refined and unrefined regions is smooth and geometrically accurate.
 
-Per identificare i triangoli da raffinare, ordinare i triangoli per valori di area decrescente e selezionare i primi $\theta$ triangoli più grandi.
+<p align="center">
+  <img src="./Images/conforming_complex.png" width="90%" alt="Complex refinement scheme">
+</p>
 
-## Suggerimenti
 
-* Durante la creazione della mesh triangolare servirà tenere conto della adiacenza dei triangoli per ricercare rapidamente il triangolo adiacente ad un lato;
-* L'ordinamento dei triangoli per area dovrà essere fatto scegliendo un algoritmo ottimale di ordinamento visto durante l'anno.
+The folder **`presentation_and_report/`** contains:
+- A detailed explanation of the **complex refinement methodology**  
+- **Experimental analyses** and performance evaluation  
+- **Results and visualizations** of the refined meshes  
+
+---
+
+## 🧠 Key Concepts
+
+- **Longest Edge Bisection (LEB):** ensures systematic and repeatable refinement.  
+- **Complex Refinement:** maintains conformity across adjacent triangles through recursive subdivision.  
+- **Mesh Quality Preservation:** prevents the creation of irregular or poorly shaped elements.  
+
+---
+
+## 🧾 References
+
+- Rivara, M.-C. (1984). *Algorithms for refining triangular grids suitable for adaptive and multigrid techniques*.  
+- Bank, R. E., & Smith, R. K. (1993). *A posteriori error estimates based on hierarchical bases*.  
+
+## 📂 Project Structure
+
