@@ -56,10 +56,5 @@ The folder **`presentation_and_report/`** contains:
 
 ---
 
-## 🧾 References
-
-- Rivara, M.-C. (1984). *Algorithms for refining triangular grids suitable for adaptive and multigrid techniques*.  
-- Bank, R. E., & Smith, R. K. (1993). *A posteriori error estimates based on hierarchical bases*.  
-
 ## 📂 Project Structure
 
